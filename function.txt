@@ -1,0 +1,79 @@
+----------------Functions---------------------
+void calculateSum() {
+  int x = 5;
+  int y = 10;
+  int sum = x + y;
+  printf("The sum of x + y is: %d", sum);
+}
+
+int main() {
+  calculateSum();  // call the function
+  return 0;
+}
+
+// Outputs The sum of x + y is: 15
+
+----------------Parameters---------------------
+void myFunction(char name[]) {
+  printf("Hello %s\n", name);
+}
+
+int main() {
+  myFunction("Liam");
+  myFunction("Jenny");
+  myFunction("Anja");
+  return 0;
+}
+
+// Hello Liam
+// Hello Jenny
+// Hello Anja
+
+----------------Scope---------------------
+// Can't call the local variable in to main function
+
+void myFunction() {
+  // Local variable that belongs to myFunction
+  int x = 5;
+
+  // Print the variable x
+  printf("%d", x);
+}
+
+int main() {
+  myFunction();
+  return 0;
+}
+
+----------------Function Declaration---------------------
+// Function declaration
+void myFunction();
+
+// The main method
+int main() {
+  myFunction();  // call the function
+  return 0;
+}
+
+// Function definition
+void myFunction() {
+  printf("I just got executed!");
+}
+----------------Recursion-------------------------------
+#include <stdio.h>
+
+int sum(int k);
+
+int main() {
+  int result = sum(10);
+  printf("%d", result);
+  return 0;
+}
+
+int sum(int k) {
+  if (k > 0) {
+    return k + sum(k - 1); // Method inside the same method
+  } else {
+    return 0;
+  }
+}
