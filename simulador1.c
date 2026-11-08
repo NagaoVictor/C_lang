@@ -39,23 +39,27 @@
 #include <stdint.h>
 #include <stdio.h>
 
-// 1. Simulamos o endereço de memória de um registrador de LED (ex: 0x40000000)
-#define FAKE_LED_REG_ADDR 0x40000000
+// Simulador de registrador em memória RAM para testes seguros no PC
+static uint32_t simulated_hardware_register = 0;
 
 int main(void) {
-    // 2. Criamos um ponteiro volátil que aponta para aquele endereço exato
-    // 'volatile' avisa o compilador: "esse valor pode mudar sozinho por causa do hardware"
-    volatile uint32_t *p_led_reg = (volatile uint32_t *)FAKE_LED_REG_ADDR;
+    // Apontando para o registrador simulado
+    volatile uint32_t *p_led_reg = &simulated_hardware_register;
 
-    printf("Endereço do registrador do LED: %p\n", (void*)p_led_reg);
+    // --- PRINT 1: Endereço de memória mapeado ---
+    printf("[PRINT 1] Endereço do registrador do LED: %p\n", (void*)p_led_reg);
 
-    // 3. Ligamos o LED escrevendo o valor 1 diretamente no endereço de memória
+    // 1. Ligando o LED (escreve 1)
     *p_led_reg = 1;
-    printf("Estado do registrador: %u\n", *p_led_reg);
+    
+    // --- PRINT 2: Estado após ligar ---
+    printf("[PRINT 2] Estado do registrador (LIGADO): %u\n", *p_led_reg);
 
-    // 4. Desligamos o LED escrevendo 0
+    // 2. Desligando o LED (escreve 0)
     *p_led_reg = 0;
-    printf("Estado do registrador: %u\n", *p_led_reg);
+    
+    // --- PRINT 3: Estado após desligar ---
+    printf("[PRINT 3] Estado do registrador (DESLIGADO): %u\n", *p_led_reg);
 
     return 0;
 }
